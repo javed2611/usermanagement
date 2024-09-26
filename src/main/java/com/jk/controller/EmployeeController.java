@@ -1,6 +1,8 @@
 package com.jk.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,6 +12,8 @@ import org.springframework.web.servlet.ModelAndView;
 import com.jk.entity.Employee;
 import com.jk.service.EmailService;
 import com.jk.service.EmployeeService;
+
+import jakarta.mail.MessagingException;
 
 @Controller
 public class EmployeeController {
@@ -55,11 +59,13 @@ public class EmployeeController {
 		mav.setViewName("edit");
 		return mav;
 	}
+
 	@GetMapping("/sendemail")
-	public ModelAndView sendEmail(@RequestParam("email") String email) {
+	public ModelAndView sendEmail(@RequestParam("email") String email, @RequestParam("name") String name) throws MessagingException {
 		String subject = "Test mail";
-		String body = "This is test mail";
-		emailService.sendMail(email, subject, body);
+		Map<String, Object> templateModel = new HashMap<>();
+		templateModel.put("name", name);
+		emailService.sendTemplateMail(email, subject, templateModel);
 		ModelAndView mav = new ModelAndView();
 		List<Employee> employee = employeeService.getAllEmployee();
 		mav.addObject("emp", employee);

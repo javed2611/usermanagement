@@ -40,14 +40,15 @@
 					<td th:text="${e.contact}" />
 					<td><a th:href="@{'/edit?eid='+${e.id}}"
 						class="btn btn-secondary">Edit</a></td>
-					<td><a th:href="@{'/sendemail?email='+${e.email}}"
+					<td><a th:href="@{'/sendemail?email='+${e.email} +'&name='+${e.firstName}}"
 						class="btn btn-outline-info">Send Email</a></td>
 					<td><a th:href="@{'/delete?eid='+${e.id}}"
 						class="btn btn-danger" onclick="return deleteConfirmation()">Delete</a></td>
 				</tr>
 			</tbody>
 		</table>
-		<a href="/" class="btn btn-success">Add Employee</a>
+		<a href="/" class="btn btn-success">Add Employee</a><br>
+		<a href="/" class="btn btn-success">Send Mail to All Employees</a>
 	</div>
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"

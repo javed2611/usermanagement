@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Email Template</title>
+	<style>
+		body {
+			font-family: Arial, sans-serif;
+			margin: 0;
+			padding: 0;
+			background-color: #f4f4f4;
+		}
+
+		.container {
+			width: 100%;
+			max-width: 600px;
+			margin: auto;
+			background: #ffffff;
+			border-radius: 8px;
+			overflow: hidden;
+		}
+
+		.header {
+			background: #007BFF;
+			color: #ffffff;
+			padding: 20px;
+			text-align: center;
+		}
+
+		.content {
+			padding: 20px;
+		}
+
+		.footer {
+			text-align: center;
+			padding: 10px;
+			background: #f4f4f4;
+			font-size: 12px;
+			color: #555;
+		}
+
+		@media only screen and (max-width: 600px) {
+			.container {
+				width: 100%;
+			}
+		}
+	</style>
+</head>
+
+<body>
+	<div class="container">
+		<div class="header">
+			<h1>Welcome to My Application!</h1>
+		</div>
+		<div class="content">
+			<h2>Hello, [[${name}]]!</h2>
+			<p>We are excited to share the latest updates with you!</p>
+			<a href="https://google.com"
+				style="display: inline-block; padding: 10px 20px; background: #007BFF; color: white; text-decoration: none; border-radius: 5px;">Visit
+				Our Website</a>
+		</div>
+		<div class="footer">
+			<p>&copy; 2024 JK InfoTech. All rights reserved.</p>
+		</div>
+	</div>
+</body>
+
+</html>
