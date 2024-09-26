@@ -5,7 +5,9 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -29,39 +31,36 @@ public class EmployeeController {
 	@GetMapping("/")
 	public ModelAndView employee() {
 		ModelAndView mav = new ModelAndView();
+		Employee e = new Employee();
+		mav.addObject("emp", e);
 		mav.setViewName("index");
 		return mav;
 	}
 
-	@GetMapping("/addemp")
-	public ModelAndView saveEmployee(Employee e) {
-		ModelAndView mav = new ModelAndView();
+	@PostMapping("/addemp")
+	public String saveEmployee(Employee e, Model model) {
 		boolean employee = employeeService.addEmployee(e);
 		if (employee) {
-			mav.addObject("smsg", "Added");
+			model.addAttribute("smsg", "Added");
+			model.addAttribute("emp", e);
 		} else {
-			mav.addObject("emsg", "Not added");
+			model.addAttribute("emsg", "Not added");
 		}
-		mav.setViewName("index");
-		return mav;
+		return "redirect:data";
 	}
 
 	@GetMapping("/edit")
 	public ModelAndView editEmployee(@RequestParam("eid") Integer eid) {
 		ModelAndView mav = new ModelAndView();
 		Employee e = employeeService.getEmployeeById(eid);
-
-		if (e != null) {
-			mav.addObject("emp", e);
-		} else {
-			mav.addObject("emsg", "Employee not found");
-		}
-		mav.setViewName("edit");
+		mav.addObject("emp", e);
+		mav.setViewName("index");
 		return mav;
 	}
 
 	@GetMapping("/sendemail")
-	public ModelAndView sendEmail(@RequestParam("email") String email, @RequestParam("name") String name) throws MessagingException {
+	public ModelAndView sendEmail(@RequestParam("email") String email, @RequestParam("name") String name)
+			throws MessagingException {
 		String subject = "Test mail";
 		Map<String, Object> templateModel = new HashMap<>();
 		templateModel.put("name", name);
@@ -73,7 +72,7 @@ public class EmployeeController {
 		return mav;
 	}
 
-	@GetMapping("/updateemp")
+	@PostMapping("/updateemp")
 	public ModelAndView updateEmployee(Employee e) {
 		ModelAndView mav = new ModelAndView();
 		boolean updated = employeeService.addEmployee(e);
